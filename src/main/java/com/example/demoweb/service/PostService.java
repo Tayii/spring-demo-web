@@ -9,7 +9,8 @@ import java.util.Date;
 
 @Service
 public class PostService {
-    private ArrayList<Post> posts;
+    @Autowired
+    PostRepository postRepository;
 
     public ArrayList<Post> listAllPosts() {
         if (this.posts == null) {
@@ -19,9 +20,7 @@ public class PostService {
     }
 
     public void create(String text) {
-        if (this.posts == null) {
-            this.posts = new ArrayList<>();
-        }
-        this.posts.add(new Post((long) this.posts.size(), text, new Date()));
+        Post post = new Post(null, text, new Date());
+        postRepository.save(post);
     }
 }
